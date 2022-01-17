@@ -1,8 +1,9 @@
 #!/bin/bash
 
-# Clean up before start
-[ ! -f /sbin/unbound ] && rpm -Uvh /rpm/*.rpm && cp /.pihole.conf /etc/unbound/conf.d/pihole.conf
+# Clean-up environment for startup, update PADD, install unbound for new deployment
 rm -rf /sbin/service /var/lock/subsys/* /tmp/* /var/run/*.pid ; cp /.service /sbin/service ; cp /.service /bin/update-rc.d ; rm -f /bin/pihole ; ln -s /usr/local/bin/pihole /bin/pihole
+wget -qN https://raw.githubusercontent.com/pi-hole/PADD/master/padd.sh -O /bin/padd
+[ ! -f /sbin/unbound ] && rpm -Uvh /rpm/*.rpm && cp /.pihole.conf /etc/unbound/conf.d/pihole.conf
 
 # Make sure users are in right groups
 usermod -a -G aid_net_bt_admin,aid_net_bt,aid_inet,aid_net_raw,aid_net_admin root
