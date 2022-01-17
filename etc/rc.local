@@ -2,7 +2,7 @@
 
 # Clean-up environment for startup, update PADD, install unbound for new deployment
 rm -rf /sbin/service /var/lock/subsys/* /tmp/* /var/run/*.pid ; cp /.service /sbin/service ; cp /.service /bin/update-rc.d ; rm -f /bin/pihole ; ln -s /usr/local/bin/pihole /bin/pihole
-wget -qN https://raw.githubusercontent.com/pi-hole/PADD/master/padd.sh -O /bin/padd
+curl --silent --output /bin/padd https://raw.githubusercontent.com/pi-hole/PADD/master/padd.sh
 [ ! -f /sbin/unbound ] && rpm -Uvh /rpm/*.rpm && cp /.pihole.conf /etc/unbound/conf.d/pihole.conf
 
 # Make sure users are in right groups
@@ -17,6 +17,10 @@ subnetmask=$(ip route list table main) ; subnetmask=$(cut -d "/" -f2 <<< "$subne
 device=$(ip route list table main | cut -d' ' -f 3)
 touch /etc/sysconfig/network-scripts/ifcfg-$device
 
+# Derive hostname from device name or set to your preference
+# hostname="DroidHole"
+hostname=$(unchroot getprop ro.product.device)
+hstnm=$(echo $hostname | sed -e 's/ /-/g' |  sed -e 's/_/-/g'| sed -e 's/--//g') ; echo $hstnm > /proc/sys/kernel/hostname ; echo $hstnm > /etc/hostname ; sed -i "/$ipaddr/d" "/etc/hosts" ; sed -i "/$hstnm/d" "/etc/hosts" ; echo $ipaddr $hstnm $hstnm.local >> /etc/hosts
 #  When a Pi-hole instance is started, the default setting is to let
 #  it automagically configure networking.  When you change netwokrks
 #  on the Android device stop the Linux Deploy instance and re-start it.
