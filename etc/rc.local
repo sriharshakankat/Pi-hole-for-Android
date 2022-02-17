@@ -34,7 +34,7 @@ sed -i "/PIHOLE_INTERFACE/c\PIHOLE_INTERFACE=$device"     /etc/pihole/setupVars.
 # Start Services
 service syslog-ng  start
 service crond      start
-service dropbear   start
+service sshd       start
 service xrdp       start
 service lighttpd   start
 service unbound    start
