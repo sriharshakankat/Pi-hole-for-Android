@@ -1,6 +1,8 @@
 # Pi-hole for Android
 **Pi-hole for ARMv7 (2011 and newer) Android devices.**
 
+****Can be installed on Lineageos 19 .Tested and its working . For help please reach out to me !! ***
+
 ![IMG_2229](https://user-images.githubusercontent.com/33142753/133272103-28c6eba3-d1f7-4e29-9c5b-7d96d9f94e9e.jpg)
 
 **Note:** There is no endorsement or partnership between this page and [Pi-hole© LLC](https://pi-hole.net/). They deserve [your support](https://pi-hole.net/donate/) if you find this useful.
